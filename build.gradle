@@ -13,13 +13,22 @@ repositories {
 }
 
 dependencies {
+    compileOnly("org.projectlombok:lombok:1.18.4")
+    testCompileOnly("org.projectlombok:lombok:1.18.4")
+    annotationProcessor("org.projectlombok:lombok:1.18.4")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.4")
+
+	//implementation 'org.springdoc:springdoc-openapi-ui:1.2.21'
+	//implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.2.21'
+
+	compile("org.springframework.boot:spring-boot-starter-actuator")
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.kafka:spring-kafka'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+	//testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
 	testImplementation 'io.projectreactor:reactor-test'
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
 }
