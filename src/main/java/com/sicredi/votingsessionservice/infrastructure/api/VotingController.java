@@ -15,7 +15,6 @@ public class VotingController {
     @Autowired
     private AssemblyBusiness assemblyBusiness;
 
-
     @GetMapping
     public AssemblyRequest searchAll(){
         return null;

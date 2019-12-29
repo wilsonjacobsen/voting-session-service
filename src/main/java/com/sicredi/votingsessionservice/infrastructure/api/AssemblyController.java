@@ -31,6 +31,4 @@ public class AssemblyController {
             return assemblyBusiness.save(AssemblyMapping.from(assembly));
     }
 
-
-
 }

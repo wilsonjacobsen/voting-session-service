@@ -8,4 +8,6 @@ import reactor.core.publisher.Flux;
 @Repository
 public interface VotingRepository extends ReactiveMongoRepository<VotingEntity,String> {
     Flux<VotingEntity> countByAssemblyCodeAndVoting(String assemblyCode,Boolean voting);
+
+
 }

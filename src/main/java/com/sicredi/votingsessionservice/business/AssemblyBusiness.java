@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Date;
+
 @Service
 public class AssemblyBusiness {
 
@@ -24,6 +26,16 @@ public class AssemblyBusiness {
 
     public Mono<AssemblyEntity> findById(String id){
         return assemblyRepository.findById(id);
+    }
+
+    public Mono<AssemblyEntity> startAssembly(String id){
+        final Date startDate = new Date();
+        return assemblyRepository.findById(id)
+                .map(assemblyEntity -> assemblyEntity.toBuilder()
+                        .startDate(startDate)
+                        .finishDate(new Date(startDate.getTime() + 60000))
+                        .build()
+                ).flatMap(assemblyRepository::save);
     }
 
 }
