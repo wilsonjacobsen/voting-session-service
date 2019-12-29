@@ -2,8 +2,6 @@ package com.sicredi.votingsessionservice.infrastructure.api.model.request;
 
 import lombok.*;
 
-import javax.swing.*;
-
 
 @Builder
 @Getter
@@ -11,7 +9,5 @@ import javax.swing.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AssemblyRequest {
-    private Spring code;
-    private Spring name;
-
+    private String name;
 }

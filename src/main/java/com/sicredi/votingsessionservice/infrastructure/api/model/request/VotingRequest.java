@@ -1,10 +1,14 @@
 package com.sicredi.votingsessionservice.infrastructure.api.model.request;
 
-import java.util.Date;
+import lombok.*;
 
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class VotingRequest {
     private String userCode;
-    private Date date;
     private String assemblyCode;
     private Boolean voting;
 }

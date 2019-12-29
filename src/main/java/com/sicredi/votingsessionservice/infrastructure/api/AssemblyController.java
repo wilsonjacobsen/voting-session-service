@@ -1,16 +1,22 @@
 package com.sicredi.votingsessionservice.infrastructure.api;
 
 import com.sicredi.votingsessionservice.business.AssemblyBusiness;
-import com.sicredi.votingsessionservice.infrastructure.api.mapping.AssemblyMapping;
+import com.sicredi.votingsessionservice.infrastructure.api.mapping.AssemblyEntityToResponseMapping;
+import com.sicredi.votingsessionservice.infrastructure.api.mapping.AssemblyRequestToEntityMapping;
+import com.sicredi.votingsessionservice.infrastructure.api.mapping.AssemblyResultToResponseMapping;
 import com.sicredi.votingsessionservice.infrastructure.api.model.request.AssemblyRequest;
+import com.sicredi.votingsessionservice.infrastructure.api.model.response.AssemblyResponse;
+import com.sicredi.votingsessionservice.infrastructure.api.model.response.AssemblyResultResponse;
 import com.sicredi.votingsessionservice.infrastructure.mongo.model.AssemblyEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
+
 @CrossOrigin
 @RestController
-@RequestMapping("/voting-session/v1/assembly/")
+@RequestMapping("/voting-session/v1/assemblies/")
 public class AssemblyController {
     @Autowired
     private AssemblyBusiness assemblyBusiness;
@@ -21,14 +27,23 @@ public class AssemblyController {
         return null;
     }
 
-    @PostMapping
-    public Mono<AssemblyEntity> save(AssemblyRequest assembly){
-            return assemblyBusiness.save(AssemblyMapping.from(assembly));
+
+    @GetMapping("/sessions/{id}")
+    public Mono<AssemblyResponse> findSession(@PathVariable String id){
+        return assemblyBusiness.findById(id)
+                .map(AssemblyEntityToResponseMapping::from);
     }
 
-    @PostMapping("/session/start")
-    public Mono<AssemblyEntity> startSession(AssemblyRequest assembly){
-            return assemblyBusiness.save(AssemblyMapping.from(assembly));
+    @PostMapping()
+    public Mono<AssemblyEntity> save( @Valid @RequestBody AssemblyRequest assembly){
+            return assemblyBusiness.save(AssemblyRequestToEntityMapping.from(assembly));
     }
+
+    @PatchMapping("/sessions/{id}/start")
+    public Mono<AssemblyResponse> startSession(@PathVariable String id){
+            return assemblyBusiness.startAssembly(id)
+                    .map(AssemblyEntityToResponseMapping::from);
+    }
+
 
 }

@@ -7,15 +7,13 @@ import javax.swing.*;
 import java.util.Date;
 
 
-
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class AssemblyResponse {
-    private String id;
+public class AssemblyResultResponse {
     private String name;
     private Date startDate;
     private Date finishDate;
