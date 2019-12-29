@@ -4,12 +4,26 @@ plugins {
 	id 'java'
 }
 
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
+
 group = 'com.sicredi'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
+	jcenter()
+}
+
+configurations.all {
+	exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+	//exclude group: "ch.qos.logback", module: "logback-core"
+	exclude group: "org.apache.logging.log4j", module: "log4j-slf4j-impl"
+	exclude group: "org.apache.geronimo.specs", module: "geronimo-servlet_3.0_spec"
 }
 
 dependencies {
@@ -18,9 +32,15 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.4")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.4")
 
-	//implementation 'org.springdoc:springdoc-openapi-ui:1.2.21'
-	//implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.2.21'
+	compile("io.springfox:springfox-swagger-ui:2.9.2")
+	compile("io.springfox:springfox-swagger2:2.9.2")
 
+//	implementation('org.springframework.cloud:spring-cloud-starter-config')
+
+	compile('org.springframework.boot:spring-boot-starter-data-rest')
+	
+	implementation('org.springframework.cloud:spring-cloud-starter-config')
+	compile("org.springframework.boot:spring-boot-starter-log4j2")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
@@ -28,9 +48,16 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-	//testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
 	testImplementation 'io.projectreactor:reactor-test'
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
+}
+
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:2.2.2.RELEASE"
+	}
 }
 
 test {
