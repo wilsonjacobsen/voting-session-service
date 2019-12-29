@@ -12,17 +12,6 @@ import reactor.core.publisher.Mono;
 @Service
 public class AssemblyResultBusiness  {
 
-    private Long sleep;
-    private String id;
-
-    public void setSleep(Long sleep) {
-        this.sleep = sleep;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     @Autowired
     private AssemblyRepository assemblyRepository;
 

@@ -2,8 +2,6 @@ package com.sicredi.votingsessionservice.infrastructure.api.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-
-import javax.swing.*;
 import java.util.Date;
 
 
